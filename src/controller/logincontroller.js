@@ -19,7 +19,14 @@ const loginController = {
         // Si la contraseña es correcta, puedes proceder a obtener el id del usuario
 
         let token = jwt.sign({ id: userExist[0].id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-        res.json({ token });
+        res
+            .cookie('access_token', token, {
+                httpOnly: true,
+                sameSite: 'strict',
+                maxAge: 3600000, // 1 hour
+            })
+            .json(userExist[0]);
+        // res.json({ token });
 
         // const [result] = await pool.query('SELECT id FROM log_usuarios WHERE correo = ? AND contraseña = ?', [email, password]);
         // res.json(userExist[0]);
