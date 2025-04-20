@@ -8,6 +8,8 @@ router.get('/', (req, res) => {
     // res.send(enctriptado);
 });
 
-router.post('/iniciarSesion', loginController.iniciarSesion);
+router.post('/iniciarSesion', loginController.iniciarSesion); 
+router.post('/registrarse', loginController.registrarse);
+router.post('/cerrarSesion', loginController.cerrarSesion);
 
 export default router;
