@@ -35,7 +35,7 @@ const loginController = {
         let { email, password } = req.body;
         
         let [userExist] = await pool.query('SELECT id, correo, contraseña FROM log_usuarios WHERE correo = ?', [email]);
-        if (userExist ||!userExist[0].id) {
+        if (!userExist ||!userExist[0].id) {
             return res.status(400).json({ message: 'Usuario no existe' });
         }
 
@@ -56,7 +56,7 @@ const loginController = {
                     id: userExist[0].id,
                 }, 
                 process.env.JWT_SECRET, 
-                { expiresIn: '1h' }
+                { expiresIn: '24h' }
             );
             res
                 .cookie('access_token', token, {
@@ -112,10 +112,9 @@ const loginController = {
             let nuevoToken = jwt.sign(
                 {
                     id: decoded.id,
-                    correo: decoded.correo
                 },
                 process.env.JWT_SECRET,
-                { expiresIn: '1h' }
+                { expiresIn: '24h' }
             );
     
             res.cookie('access_token', nuevoToken, {

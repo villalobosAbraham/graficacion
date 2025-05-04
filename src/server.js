@@ -1,5 +1,6 @@
 import express from 'express';
 import login from './routes/login.js';
+import diagramas from './routes/diagramas.js';
 // import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
 // dotenv.config();
@@ -16,6 +17,7 @@ app.use(cookieParser());
 
 // Routes
 app.use(login);
+app.use(diagramas);
 
 // Port
 app.listen(3000);
